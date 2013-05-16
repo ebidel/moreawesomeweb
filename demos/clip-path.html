@@ -1,0 +1,93 @@
+<!--
+Copyright 2013 Eric Bidelman
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Author: Eric Bidelman (@ebidel)
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>CSS clip-path</title>
+<style>
+html, body {
+  margin: 0;
+  overflow: hidden;
+}
+div, img {
+  -webkit-clip-path: url(#myClip);
+  -moz-clip-path: url(#myClip);
+  -o-clip-path: url(#myClip);
+  -ms-clip-path: url(#myClip);
+  clip-path: url(#myClip);
+  width: auto;
+  height: 550px;
+}
+</style>
+</head>
+<body onclick="swap()">
+
+<img src="http://www.html5rocks.com/static/images/background-home.jpg">
+
+<div hidden><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tristique placerat nulla, ut accumsan dui tincidunt ut. Duis accumsan gravida orci. Integer tincidunt tristique leo. Phasellus hendrerit varius urna, vitae cursus justo dignissim eu. In hac habitasse platea dictumst. Fusce felis felis, scelerisque eget venenatis nec, tempus non sem. Etiam blandit eleifend consectetur. Sed vel venenatis nisl.</p>
+
+<p>LUt nunc ipsum, porta id ullamcorper tristique, tempus euismod quam. Mauris vitae nibh id nunc adipiscing pellentesque. Donec adipiscing, sapien eu consectetur sagittis, eros neque adipiscing dui, fringilla vulputate nibh nisl at dolor. Sed arcu sem, condimentum vel condimentum eu, ultricies non elit. Phasellus ipsum diam, faucibus vel semper id, rhoncus id dui. Integer vitae dictum est. Suspendisse eget leo feugiat elit molestie posuere. Nunc euismod mollis eros, porta hendrerit felis tincidunt eget. Vivamus tincidunt adipiscing leo, non volutpat diam condimentum non.</p>
+
+<p>LNullam tortor mi, luctus ut eleifend non, placerat eget lectus. Pellentesque ante felis, ultrices vel consequat sed, rutrum sed mi. Phasellus pharetra commodo suscipit. Proin viverra, neque non bibendum tempus, urna lorem fermentum tellus, iaculis convallis nulla eros a nibh. Fusce ultricies est nec erat ultrices eu tempus tortor commodo. Duis hendrerit suscipit ullamcorper. Etiam ac purus enim, aliquet semper nulla. Pellentesque ullamcorper, purus nec varius mollis, dolor lectus ornare orci, eu dictum diam mauris nec sapien. Etiam iaculis gravida risus ut mattis. Maecenas velit dui, aliquam nec elementum ac, accumsan vel tellus. Cras ultrices accumsan urna, a commodo tortor mollis eget. Phasellus gravida risus nec sapien auctor eu consectetur ligula faucibus. Aenean rhoncus nisl et est venenatis vestibulum. Nulla tortor ligula, tristique in feugiat vitae, tempor nec eros. Aliquam adipiscing ornare justo vitae scelerisque.</p>
+
+<p>LUt nunc ipsum, porta id ullamcorper tristique, tempus euismod quam. Mauris vitae nibh id nunc adipiscing pellentesque. Donec adipiscing, sapien eu consectetur sagittis, eros neque adipiscing dui, fringilla vulputate nibh nisl at dolor. Sed arcu sem, condimentum vel condimentum eu, ultricies non elit. Phasellus ipsum diam, faucibus vel semper id, rhoncus id dui. Integer vitae dictum est. Suspendisse eget leo feugiat elit molestie posuere. Nunc euismod mollis eros, porta hendrerit felis tincidunt eget. Vivamus tincidunt adipiscing leo, non volutpat diam condimentum non.</p>
+
+<p>LUt nunc ipsum, porta id ullamcorper tristique, tempus euismod quam. Mauris vitae nibh id nunc adipiscing pellentesque. Donec adipiscing, sapien eu consectetur sagittis, eros neque adipiscing dui, fringilla vulputate nibh nisl at dolor. Sed arcu sem, condimentum vel condimentum eu, ultricies non elit. Phasellus ipsum diam, faucibus vel semper id, rhoncus id dui. Integer vitae dictum est. Suspendisse eget leo feugiat elit molestie posuere. Nunc euismod mollis eros, porta hendrerit felis tincidunt eget. Vivamus tincidunt adipiscing leo, non volutpat diam condimentum non.</p>
+</div>
+
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <clipPath id="myClip">
+      <circle cx="150" cy="125" r="100"/>
+      <circle cx="70" cy="70" r="20"/>
+      <circle cx="200" cy="370" r="100"/>
+      <circle cx="300" cy="370" r="75"/>
+      <rect x="200" y="125" width="300" height="200" rx="200" ry="50"/>
+      <circle cx="170" cy="500" r="20"/>
+      <circle cx="450" cy="350" r="20"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<script>
+var div = document.querySelector('div');
+var img = document.querySelector('img');
+
+function swap() {
+  div.hidden = !div.hidden;
+  img.hidden = !img.hidden;
+}
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40440663-1', 'moreawesomeweb.com');
+  ga('send', 'pageview');
+</script>
+
+<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<!--
+Copyright 2013
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Author: Eric Bidelman (ericbidelman@chromium.org)
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<title>GAL 9000</title>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  color: #fff;
+  font: 10pt 'Droid Sans', Arial;
+  background: url('grid_bg.png'),
+              -webkit-radial-gradient(50% 50%, circle, #777, #000);
+  background: url('grid_bg.png'),
+              -moz-radial-gradient(50% 50%, circle, #777, #000);
+  background: url('grid_bg.png'),
+              -ms-radial-gradient(50% 50%, circle, #777, #000);
+  background: url('grid_bg.png'),
+              -o-radial-gradient(50% 50%, circle, #777, #000);
+  background: url('grid_bg.png'),
+              radial-gradient(50% 50%, circle, #777, #000);
+}
+canvas {
+  width: 100%;
+}
+button {
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  color: black;
+  background: -webkit-linear-gradient(top, #F9F9F9 40%, #E3E3E3 70%);
+  background: -moz-linear-gradient(top, #F9F9F9 40%, #E3E3E3 70%);
+  background: -ms-linear-gradient(top, #F9F9F9 40%, #E3E3E3 70%);
+  background: -o-linear-gradient(top, #F9F9F9 40%, #E3E3E3 70%);
+  background: linear-gradient(top, #F9F9F9 40%, #E3E3E3 70%);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  margin: 0;
+  vertical-align: middle;
+}
+button:not([disabled]):active {
+  background: -webkit-linear-gradient(top, #E3E3E3 40%, #F9F9F9 70%);
+  background: -moz-linear-gradient(top, #E3E3E3 40%, #F9F9F9 70%);
+  background: -ms-linear-gradient(top, #E3E3E3 40%, #F9F9F9 70%);
+  background: -o-linear-gradient(top, #E3E3E3 40%, #F9F9F9 70%);
+  background: linear-gradient(top, #E3E3E3 40%, #F9F9F9 70%);
+}
+button[disabled] {
+  color: #ccc;
+}
+button:not([disabled]):hover {
+  border-color: black;
+}
+input[type="range"],
+input[type="checkbox"],
+select {
+  vertical-align: middle;
+}
+select {
+  position: absolute;
+  top: 15px;
+}
+details, select {
+  left: 15px;
+}
+details {
+  position: absolute;
+  top: 15px;
+  background: -webkit-linear-gradient(top, white, #ccc);
+  background: -moz-linear-gradient(top, white, #ccc);
+  background: -ms-linear-gradient(top, white, #ccc);
+  background: -o-linear-gradient(top, white, #ccc);
+  background: linear-gradient(top, white, #ccc);
+  border-radius: 10px;
+  padding: 10px;
+  color: #555;
+}
+details summary {
+  font-weight: bold;
+  white-space: nowrap;
+  cursor: pointer;
+}
+details > button {
+  vertical-align: top;
+}
+details > div > span {
+  width: 90px;
+  display: inline-block;
+}
+#container {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.circle {
+  border-radius: 50%;
+}
+#hal {
+  width: 250px;
+  height: 250px;
+  background: -webkit-linear-gradient(left, transparent, #fff 40%, #fff 45%, #fff 55%, #fff 60%, transparent),
+              -webkit-linear-gradient(-45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+              -webkit-linear-gradient(45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+              #3c3734;
+  background: -moz-linear-gradient(left, transparent, #fff 40%, #fff 45%, #fff 55%, #fff 60%, transparent),
+              -moz-linear-gradient(-45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+              -moz-linear-gradient(45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+              #3c3734;
+  background: linear-gradient(left, transparent, #fff 40%, #fff 45%, #fff 55%, #fff 60%, transparent),
+              linear-gradient(-45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+              linear-gradient(45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+              #3c3734;
+  background-size: 75% 50%, 50% 100%, 50% 100%, 100% 100%;
+  background-position: 50% top, right -50px, left -50px, 50% 50%;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  box-shadow: 0 5px 20px black;
+}
+#hal .inner {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+}
+#hal .inner {
+  width: 95%;
+  height: 95%;
+}
+#hal > .inner {
+  background: -webkit-linear-gradient(left, transparent,  transparent 32%, white 45%, white 50%, white 55%, transparent 68%, transparent),
+              -webkit-linear-gradient(-45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+              -webkit-linear-gradient(45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+              -webkit-linear-gradient(top, #b5a5a8, #92807e);
+  background: -moz-linear-gradient(left, transparent,  transparent 32%, white 45%, white 50%, white 55%, transparent 68%, transparent),
+              -moz-linear-gradient(-45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+              -moz-linear-gradient(45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+              -moz-linear-gradient(top, #b5a5a8, #92807e);
+   background: linear-gradient(left, transparent,  transparent 32%, white 45%, white 50%, white 55%, transparent 68%, transparent),
+              linear-gradient(-45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+              linear-gradient(45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+              linear-gradient(top, #b5a5a8, #92807e);
+  background-size: 100% 50%, 50% 100%, 50% 100%, 100% 100%;
+  background-position: 50% bottom, left 50px, right 50px, center center;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+}
+#hal .inner .inner {
+  width: 90%;
+  height: 90%;
+  background: url(glare.png), url(glare2.png),
+              -webkit-radial-gradient(50% 50%, circle, #fffa64, #fd0d00 5%, #f40c00 20%, #ef0b00 20%, black 63%);
+  background: url(glare.png), url(glare2.png),
+              -moz-radial-gradient(50% 50%, circle, #fffa64, #fd0d00 5%, #f40c00 20%, #ef0b00 20%, black 63%);
+  background: url(glare.png), url(glare2.png),
+              radial-gradient(50% 50%, circle, #fffa64, #fd0d00 5%, #f40c00 20%, #ef0b00 20%, black 63%);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: 76% 41%, 55% 100%, 100%, 100%;
+  background-position: 50% 12%, 27% 8px, center center;
+  overflow: hidden;
+  background-color: black;
+}
+.hidden {
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<details>
+  <summary>Options</summary>
+  <div>
+    <span>smoothing:</span><input type="range" min="0" max="0.95" step="0.05" value="0.0" id="smoothing"><br>
+    <span>time domain?:</span><input type="checkbox" id="waveform"><br>
+    <span>show canvas?:</span><input type="checkbox" id="show-canvas" checked>
+  </div>
+  <button onclick="runCmd(this)" data-func="liveInputInit">play</button> 
+  <button onclick="runCmd(this)" data-func="stop" disabled>pause</button>
+</details>
+
+<div id="container">
+  <div id="hal" class="circle">
+    <div class="inner circle">
+       <div class="inner circle">
+        <canvas id="fft" height="250"></canvas>
+       </div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.requestAnimationFrame = window.requestAnimationFrame ||
+                               window.webkitRequestAnimationFrame ||
+                               window.mozRequestAnimationFrame ||
+                               window.oRequestAnimationFrame ||
+                               window.msRequestAnimationFrame;
+
+window.cancelAnimationFrame = window.cancelAnimationFrame ||
+                              window.webkitCancelAnimationFrame ||
+                              window.mozCancelAnimationFrame ||
+                              window.msCancelAnimationFrame ||
+                              window.oCancelAnimationFrame
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                         navigator.msGetUserMedia || navigator.mozGetUserMedia 
+
+window.util = window.url || {};
+
+util.max = function(array) {
+  var max = array[0];
+  var len = array.length;
+  for (var i = 0; i < len; ++i) {
+    if (array[i] > max) {
+      max = array[i];
+    }
+  }
+  return max;
+}
+
+util.average = function(array) {
+  var sum = 0;
+  var len = array.length;
+  for (var i = 0; i < len; ++i) {
+    sum += array[i];
+  }
+  return sum / len;
+}
+
+function Sound() {
+  var MIX_TO_MONO = true;
+  var NUM_SAMPLES = 2048;
+
+  var self_ = this;
+  var context_ = new (window.AudioContext || window.webkitAudioContext || window.mozAudioContext)();
+  var source_ = null;
+  var analyser_ = null;
+  var reqId_ = null;
+
+  this.playing = false;
+
+  var processAudio_ = function(time) {
+    var freqByteData = new Uint8Array(analyser_.frequencyBinCount);
+
+    if (waveForm.checked) {
+      analyser_.getByteTimeDomainData(freqByteData);
+    } else {
+      analyser_.getByteFrequencyData(freqByteData);
+    }
+
+    var percent = Math.min((util.max(freqByteData) / 150) * 100, 105);
+    if (!self_.playing) {
+      percent = 100;
+    }
+    gradient.style.backgroundSize = '76% 41%, 55% 100%, ' + percent + '%, ' + percent + '%';
+
+    if (showCanvas.checked) {
+      self_.renderFFT('canvas', freqByteData);
+    }
+  };
+
+  this.renderFFT = function(format, freqByteData) {
+    if (format == 'canvas') {
+      var SPACER_WIDTH = 5;
+      var BAR_WIDTH = 5;
+      var numBars = Math.round(canvas.width / SPACER_WIDTH);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw rectangle for each frequency bin.
+      var y = (canvas.height / 2) + 3;
+      for (var i = 0; i < numBars; ++i) {
+        var magnitude = freqByteData[i];
+        var height = magnitude / (canvas.height / 75);
+        ctx.fillRect(i * SPACER_WIDTH, y, BAR_WIDTH, -height);
+        ctx.fillRect(i * SPACER_WIDTH, y, BAR_WIDTH, height);
+      }
+    }
+  };
+
+  this.initAudio = function(arrayBuffer) {
+    if (source_) {
+      runCmd('stop');
+    }
+
+    source_ = context_.createBufferSource();
+    source_.loop = false;
+
+    // Use async decoder if it is available.
+    if (context_.decodeAudioData) {
+      context_.decodeAudioData(arrayBuffer, function(buffer) {
+        source_.buffer = buffer;
+      }.bind(this), function(e) {
+        console.log(e);
+      });
+    } else {
+      source_.buffer = context_.createBuffer(arrayBuffer, MIX_TO_MONO /*mixToMono*/);
+    }
+  };
+
+  this.liveInputInit = function() {
+    this.play();
+    document.querySelector("[data-func='liveInputInit']").disabled = true;
+    document.querySelector("[data-func='stop']").disabled = false;
+  };
+
+  this.load = function(url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function(e) {
+      document.querySelector("[data-func='play']").disabled = false;
+      self_.initAudio(request.response);
+    };
+    request.send();
+  };
+
+  // For live into, we need to "convert to mono" to both channels have data.
+  this.convertToMono = function(input) {
+     var splitter = context_.createChannelSplitter(2);
+     var merger = context_.createChannelMerger(2);
+
+     input.connect(splitter);
+     splitter.connect(merger, 0, 0);
+     splitter.connect(merger, 0, 1);
+     return merger;
+  };
+
+  this.play = function() {
+    navigator.getUserMedia({audio: true}, function(stream) {
+      source_ = context_.createMediaStreamSource(stream);
+
+      // Connect the processing graph: source -> analyser -> destination
+      analyser_ = context_.createAnalyser();
+      //source_.connect(analyser_);
+      this.convertToMono(source_).connect(analyser_);
+      analyser_.connect(context_.destination);
+
+      //source_.start(0);
+      this.playing = true;
+
+      (function callback(time) {
+        processAudio_(time);
+        reqId_ = window.requestAnimationFrame(callback);
+      })();
+
+    }.bind(this), function(e) {
+      console.log(e);
+    });
+  };
+
+  this.stop = function() {
+    source_.disconnect(0);
+    analyser_.disconnect(0);
+    this.playing = false;
+    window.cancelAnimationFrame(reqId_);
+  };
+}
+
+function runCmd(el) {
+  if (typeof el == 'string') {
+    var func = el;
+  } else {
+    var func = el.dataset.func;
+  }
+  sound[func]();
+  el.disabled = !el.disabled;
+  switch (func) {
+    case 'play':
+      document.querySelector("[data-func='stop']").disabled = false;
+      break;
+    case 'stop':
+      document.querySelector("[data-func='liveInputInit']").disabled = false;
+      break;
+    default:
+      // noop
+  }
+}
+
+var waveForm = document.getElementById('waveform');
+var canvas = document.getElementById('fft');
+var showCanvas = document.getElementById('show-canvas');
+var gradient = document.querySelector('#hal .inner .inner');
+var ctx = canvas.getContext('2d');
+ctx.fillStyle = 'rgba(0,0,0,0.1)'; //rgba(68,0,3,0.2)
+
+var sound = new Sound();
+
+(function init() {
+  //sound.load('audio/gal9000.wav');
+
+  showCanvas.addEventListener('change', function(e) {
+    canvas.classList.toggle('hidden');
+  }, false);
+})();
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40440663-1', 'moreawesomeweb.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

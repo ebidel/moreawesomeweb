@@ -1,0 +1,202 @@
+@import "compass/css3/background-size";
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/images";
+@import "compass/css3/text-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/css3/user-interface";
+
+@import "variables";
+
+
+@mixin filter($val) {
+  -webkit-filter: $val;
+  -o-filter: $val;
+  -moz-filter: $val;
+  -ms-filter: $val;
+  filter: $val;
+}
+
+@mixin display-flex() {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+}
+
+@mixin justify-content($val) {
+  -webkit-justify-content: $val;
+  -moz-justify-content: $val;
+  -o-justify-content: $val;
+  -o-justify-content: $val;
+  justify-content: $val;
+}
+
+@mixin align-items($val) {
+  -webkit-align-items: $val;
+  -moz-align-items: $val;
+  -o-align-items: $val;
+  -o-align-items: $val;
+  align-items: $val;
+}
+
+@mixin flex-direction($val) {
+  -webkit-flex-direction: $val;
+  -moz-flex-direction: $val;
+  -o-flex-direction: $val;
+  -o-flex-direction: $val;
+  flex-direction: $val;
+}
+
+@mixin order($val) {
+  -webkit-order: $val;
+  -moz-order: $val;
+  -o-order: $val;
+  -o-order: $val;
+  order: $val;
+}
+
+
+@mixin flex($val) {
+  -webkit-flex: $val;
+  -moz-flex: $val;
+  -o-flex: $val;
+  -o-flex: $val;
+  flex: $val;
+}
+
+// ----
+
+hr {
+  border: none;
+  @include background(linear-gradient(left, rgba(255, 255, 255, 0), $gray-2 10%, $gray-2 90%, rgba(255, 255, 255, 0)) no-repeat);
+  height: 1px;
+}
+
+.weavebg {
+  background: -webkit-linear-gradient(63deg, rgb(21, 21, 21) 5px, transparent 5px) 0 5px,
+              -webkit-linear-gradient(243deg, rgb(21, 21, 21) 5px, transparent 5px) 10px 0px,
+              -webkit-linear-gradient(63deg, rgb(34, 34, 34) 5px, transparent 5px) 0px 10px,
+              -webkit-linear-gradient(243deg, rgb(34, 34, 34) 5px, transparent 5px) 10px 5px,
+              -webkit-linear-gradient(0deg, rgb(27, 27, 27) 10px, transparent 10px),
+              -webkit-linear-gradient(rgb(29, 29, 29) 25%, rgb(26, 26, 26) 25%, rgb(26, 26, 26) 50%, transparent 50%, transparent 75%, rgb(36, 36, 36) 75%, rgb(36, 36, 36));
+  background: -moz-linear-gradient(63deg, rgb(21, 21, 21) 5px, transparent 5px) 0 5px,
+              -moz-linear-gradient(243deg, rgb(21, 21, 21) 5px, transparent 5px) 10px 0px,
+              -moz-linear-gradient(63deg, rgb(34, 34, 34) 5px, transparent 5px) 0px 10px,
+              -moz-linear-gradient(243deg, rgb(34, 34, 34) 5px, transparent 5px) 10px 5px,
+              -moz-linear-gradient(0deg, rgb(27, 27, 27) 10px, transparent 10px),
+              -moz-linear-gradient(rgb(29, 29, 29) 25%, rgb(26, 26, 26) 25%, rgb(26, 26, 26) 50%, transparent 50%, transparent 75%, rgb(36, 36, 36) 75%, rgb(36, 36, 36));
+  background: -ms-linear-gradient(63deg, rgb(21, 21, 21) 5px, transparent 5px) 0 5px,
+              -ms-linear-gradient(243deg, rgb(21, 21, 21) 5px, transparent 5px) 10px 0px,
+              -ms-linear-gradient(63deg, rgb(34, 34, 34) 5px, transparent 5px) 0px 10px,
+              -ms-linear-gradient(243deg, rgb(34, 34, 34) 5px, transparent 5px) 10px 5px,
+              -ms-linear-gradient(0deg, rgb(27, 27, 27) 10px, transparent 10px),
+              -ms-linear-gradient(rgb(29, 29, 29) 25%, rgb(26, 26, 26) 25%, rgb(26, 26, 26) 50%, transparent 50%, transparent 75%, rgb(36, 36, 36) 75%, rgb(36, 36, 36));     
+  background-color: rgb(19, 19, 19);
+  @include background-size(20px 20px);
+}
+
+.weavebg2 {
+  background: url('../../images/bgs/bg-rep.png') 50% 50%;
+  //@include background-size(cover);
+}
+
+.demo {
+  text-transform: uppercase;
+  padding: 6px 12px 6px 12px;
+  text-decoration: none;
+  background-color: #759ae9;
+  //@include background(linear-gradient(top, $brand-blue 0%, $brand-blue 50%, $brand-blue-secondary 50%, $brand-blue-secondary2 100%));
+  @include background(linear-gradient(top, $brand-blue 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%));
+  border-top: 1px solid #1f58cc;
+  border-right: 1px solid #1b4db3;
+  border-bottom: 1px solid #174299;
+  border-left: 1px solid #1b4db3;
+  @include border-radius(4px);
+  @include box-shadow(inset 0 0 2px 0 rgba(57, 140, 255, 0.8));
+  color: white;
+  @include text-shadow(0 -1px 1px #1a5ad9);
+  font-weight: 600;
+
+  &:hover {
+    color: white !important;
+    @include background(linear-gradient(top, $brand-blue 0%, #376fe0 50%, #242424 50%, #2463de 100%));
+  }
+}
+
+label {
+  &.bad, &.good, &.sortof {
+    padding: 8px;
+    @include border-radius(50%);
+    color: white;
+    margin-right: 5px;
+    // min-width: 70px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    @include transform(rotateZ(90deg));
+    @include box-shadow(-2px 2px 3px 3px rgba(0, 0, 0, 0.25) inset);
+    width: 20px;
+    height: 20px;
+
+    line-height: 1.1;
+
+    &:after {
+      position: relative;
+      left: 2px;
+      top: -5px;
+    }
+  }
+  &.bad {
+    background-color: $brand-red-secondary;
+    &::after {
+      content: ':(';
+    }
+  }
+  &.good {
+    background-color: $brand-green-secondary;
+    &::after {
+      content: ':)';
+    }
+  }
+  &.sortof {
+    background-color: $brand-yellow-secondary;
+    &::after {
+      content: ':|';
+    }
+  }
+}
+
+.topmargin {
+  margin-top: 3em;
+}
+
+.rounded {
+  @include border-radius(10px);
+}
+
+.grayscale {
+  @include filter(grayscale(1));
+}
+
+.hidden {
+  display: none !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.previewframe {
+  display: block;
+  border: none;
+
+  iframe {
+    @include user-select(none);
+    //@include transform(scale(0.8));
+    pointer-events: none;
+    border: none;
+  }
+}

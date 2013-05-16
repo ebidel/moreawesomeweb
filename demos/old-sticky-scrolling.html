@@ -1,0 +1,112 @@
+<!--
+Copyright 2013 Eric Bidelman
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Author: Eric Bidelman (@ebidel)
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300|Swanky+and+Moo+Moo" rel="stylesheet" type="text/css">
+<title>Old fixed position scrolling</title>
+<style>
+html, body {
+  margin: 0;
+}
+body {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  background-color: #eee;
+}
+.fixed {
+  position: fixed;
+  top: 0;
+}
+.sticky {
+  width: 100%;
+  background: #ffcc00;
+  text-transform: uppercase;
+  font-family: 'Swanky and Moo Moo', cursive;
+  font-size: 45px;
+  line-height: 0;
+}
+p {
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  padding: 3em;
+  border-radius: 5px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: -ms-fit-content;
+  width: -o-fit-content;
+  width: fit-content;
+  margin-top: 700px;
+}
+p:nth-child(1) {
+  margin-top: 1em;
+  margin-bottom: 100px;
+  padding: 1em 1em 0.75em 1em;
+  background-color: black;
+}
+</style>
+</head>
+<body>
+
+<p>Scroll this page<br>&darr;</p>
+<div class="sticky"><h3>Super amazing header</h3></div>
+<p>Love scrolling...</p>
+<p>Feels good!</p>
+<p>Still there?</p>
+<p>Yep?</p>
+<p>Scroll so hard!</p>
+<script>
+var sticky = document.querySelector('.sticky');
+var origOffsetY = sticky.offsetTop;
+
+function onScroll(e) {
+  window.scrollY >= origOffsetY ? sticky.classList.add('fixed') :
+                                  sticky.classList.remove('fixed');
+}
+
+document.addEventListener('scroll', onScroll);
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40440663-1', 'moreawesomeweb.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!--
+Copyright Eric Bidelman <ebidel@gmail.com> 2013
+
+Adapted from Google IO 2012 HTML5 Slide Template
+https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A More Awesome Web: Features You've Always Wanted</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="all" href="theme/css/app.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script src="demos/computer_speak.js"></script>
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0" class="weavebg">
+
+<main role="main"> 
+
+<slides class="layout-widescreen">
+
+<!-- <slide class="logoslide nobackground">
+  <article class="flexbox vcenter">
+    <span><img src="images/google_developers_logo.png"></span>
+  </article>
+</slide> -->
+
+<!-- <slide id="first-slide" class="nobackground"></slide>
+ -->
+<slide class="title-slide segue nobackground nobackground">
+  <div data-config-logo class="spin"></div>
+  <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+  <article class="auto-fadein flexbox vleft">
+    <hgroup>
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <hr>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+    <!-- <p class="presolink"><a href="http://www.moreawesomeweb.com">moreawesomeweb.com</a></p> -->
+  </article>
+</slide>
+
+{% for slide in slides %}
+
+<slide {% if slide.id %}id="{{- slide.id -}}"{% endif %} {% if slide.class %}class="{{- slide.class -}}"{% endif %} {% if slide.image %}style="background-image: url({{- slide.image -}})"{% endif %} {% if slide.body_class %}data-body-class="{{- slide.body_class -}}"{% endif %} {% if slide.hidden == 'true' %}hidden{% endif %}>
+  {% if 'segue' in slide.class %}
+    <aside class="gdbar"><img src="images/logos/chrome_logo.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>{{- slide.title -}}</h2>
+      <h3>{{- slide.subtitle -}}</h3>
+    </hgroup>
+  {% else %}
+    <hgroup>
+      <span>
+        {% if slide.bug_link %}
+          <a href="{{- slide.bug_link -}}" target="_blank" class="bug" title="Bug link"></a>
+        {% endif %}
+        {% if slide.spec_link %}
+          <a href="{{- slide.spec_link -}}" target="_blank" class="spec" title="Spec link"></a>
+        {% endif %}
+        {% if slide.h5r_link %}
+          <a href="{{- slide.h5r_link -}}" target="_blank" class="h5r" title="HTML5Rocks article"></a>
+        {% endif %}
+      </span>
+      <h2>{{- slide.title -}}</h2>
+      <h3>{{- slide.subtitle -}}</h3>
+    </hgroup>
+    <article {% if slide.content_class %}class="{{- slide.content_class -}}"{% endif %}>
+    {{- slide.content -}}
+    </article>
+ {% endif %}
+</slide>
+{% endfor %}
+
+<slide class="thank-you-slide segue nobackground">
+  <aside class="gdbar right"><img src="images/logos/chrome_logo.png"></aside>
+  <article class="flexbox vleft auto-fadein">
+    <h2>Thank You!</h2>
+    <div style="margin-top:25px;font-size:45px;"><a href="http://www.moreawesomeweb.com">moreawesomeweb.com</a></div>
+  </article>
+  <p class="auto-fadein" data-config-contact></p>
+</slide>
+
+<!-- <slide class="logoslide nobackground nobackdrop">
+  <article class="flexbox vcenter">
+    <span><img src="images/google_developers_logo.png"></span>
+  </article>
+</slide>
+ -->
+<slide class="backdrop"></slide>
+
+</main>
+
+</slides>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40440663-1', 'moreawesomeweb.com');
+  ga('send', 'pageview');
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
