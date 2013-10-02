@@ -83,8 +83,8 @@ Computer.prototype.translate = function(txt) {
 Computer.prototype.speak = function(txt) {
   // Needs to run from local file. Reffer not allowed.
   var audioURL = ['http://translate.google.com/translate_tts?ie=UTF-8&q=',
-                    txt , '&tl=', DEST_LANG].join('');
-  
+                  txt , '&tl=', this.DEST_LANG].join('');
+
   var a = new Audio();
   a.autoplay = true;
   a.src = audioURL;
