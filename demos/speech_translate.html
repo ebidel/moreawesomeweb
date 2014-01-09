@@ -1,5 +1,5 @@
 <!--
-Copyright 2013 - Eric Bidelman <ebidel@gmail.com>
+Copyright 2014 - Eric Bidelman <ebidel@gmail.com>
 -->
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,6 @@ Copyright 2013 - Eric Bidelman <ebidel@gmail.com>
     -ms-flex-direction: column;
     -o-flex-direction: column;
     flex-direction: column;
-
   }
   section button {
     padding: 10px;
@@ -70,14 +69,36 @@ Copyright 2013 - Eric Bidelman <ebidel@gmail.com>
   output :last-child {
     color: black;
   }
+  .support {
+    color: red;
+    text-align: center;
+    font-weight: 600;
+  }
+  #recog-support, #synth-support {
+    display: none;
+  }
+  .show {
+    display: block !important;
+  }
+  summary {
+    text-align: center;
+    margin: 2em;
+  }
   </style>
 </head>
 <body class="flex">
 
+<div class="support">
+  <p id="recog-support">Your browser doesn't support <a href="https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html#speechreco-section"><code>window.SpeechRecognition</code></a> from the Web Speech API.</p>
+  <p id="synth-support">Your browser doesn't support <a href="https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html#tts-section"><code>window.speechSynthesis</code></a> from the Web Speech API.</p>
+</div>
+
+<summary>Auto-translate! This demo uses the <a href="https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">Web Speech API</a> to input speech from the microphone (speech to text) and speech synthesis (text to speech) to play back your translated speech using the Google Translate API.</summary>
+
 <section class="top flex align-items-center">
   <button class="green">start</button>
   <button class="red" disabled>stop</button>
-  <select id="lang">
+  <span style="margin-left: 10px">Accent: <select id="lang">
     <option>de</option>
     <option>en</option>
     <option selected>es</option>
@@ -85,7 +106,7 @@ Copyright 2013 - Eric Bidelman <ebidel@gmail.com>
     <option>it</option>
     <option>nl</option>
     <option>zh</option>
-  </select>
+  </select></span>
   <span id="status"></span>
 </section>
 <section class="bottom flex align-items-center">
@@ -101,6 +122,15 @@ var startButton = document.querySelector('button.green');
 var stopButton = document.querySelector('button.red');
 
 var justSpoke = false;
+
+// Toggle browser support messages.
+if (!('speechSynthesis' in window)) {
+  document.querySelector('#synth-support').classList.add('show');
+}
+
+if (!('SpeechRecognition' in window)) {
+  document.querySelector('#recog-support').classList.add('show');
+}
 
 var computer = new Computer(true, out);
 

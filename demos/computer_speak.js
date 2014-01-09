@@ -1,7 +1,7 @@
-function Computer(continuous, outContainer) {
-  window.SpeechRecognition = window.SpeechRecognition ||
-                             window.webkitSpeechRecognition;
+window.SpeechRecognition = window.SpeechRecognition ||
+                           window.webkitSpeechRecognition;
 
+function Computer(continuous, outContainer) {
   this.recognizer = new window.SpeechRecognition();
   this.recognizer.continuous = continuous;
   this.outContainer = outContainer;
@@ -77,15 +77,26 @@ Computer.prototype.translate = function(txt) {
     this.speak(translateText);
   }.bind(this);
 
-  xhr.send();  
+  xhr.send();
 };
 
 Computer.prototype.speak = function(txt) {
-  // Needs to run from local file. Reffer not allowed.
-  var audioURL = ['http://translate.google.com/translate_tts?ie=UTF-8&q=',
-                  txt , '&tl=', this.DEST_LANG].join('');
 
-  var a = new Audio();
-  a.autoplay = true;
-  a.src = audioURL;
+  console.log('Translated text: ', txt);
+
+  var msg = new SpeechSynthesisUtterance();
+  // msg.voiceURI = 'native';
+  //   msg.volume = 1; // 0 to 1
+  //   var voices = window.speechSynthesis.getVoices();
+  //   msg.voice = voices[10];
+  //   msg.rate = 1; // 0.1 to 10
+  //   msg.pitch = 1; //0 to 2
+  msg.text = txt;
+  msg.lang = this.DEST_LANG;
+
+  msg.onend = function(e) {
+    console.log('Finished at ' + e.elapsedTime + ' seconds.');
+  };
+
+  speechSynthesis.speak(msg);
 };
