@@ -84,6 +84,11 @@ Computer.prototype.speak = function(txt) {
 
   console.log('Translated text: ', txt);
 
+  // Need to latinize the text.
+  // Remove when https://code.google.com/p/chromium/issues/detail?id=333515 is fixed.
+  var sanitized = latinize(txt);
+  console.log('sanitized speech: ' + sanitized);
+
   var msg = new SpeechSynthesisUtterance();
   // msg.voiceURI = 'native';
   //   msg.volume = 1; // 0 to 1
@@ -91,7 +96,7 @@ Computer.prototype.speak = function(txt) {
   //   msg.voice = voices[10];
   //   msg.rate = 1; // 0.1 to 10
   //   msg.pitch = 1; //0 to 2
-  msg.text = txt;
+  msg.text = sanitized;
   msg.lang = this.DEST_LANG;
 
   msg.onend = function(e) {

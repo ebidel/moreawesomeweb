@@ -147,9 +147,7 @@ computer.onresult = function(e) {
       }
 
       console.log('Speech result: ' + result[0].transcript);
-      // Need to latinize the text.
-      // Remove when https://code.google.com/p/chromium/issues/detail?id=333515 is fixed.
-      this.translate(latinize(result[0].transcript));
+      this.translate(result[0].transcript);
     }
   }
 };
